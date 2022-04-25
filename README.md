@@ -14,4 +14,5 @@ Steps for deploying this project:
    - A tomcat server to deploy the build artifact
    - Notify slack channel on build status
 5. Setup logging and monitoring of the application server using prometheus and grafana
+6. Setup regualr notifications to slack channel on the application server's health 
 
