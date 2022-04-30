@@ -10,9 +10,10 @@ Steps for deploying this project:
    - A Jenkins master server configured to use the github webhook of your project repository to pull the source code from the git repository
    - A maven slave agent to compile, test and build the artifact 
    - A sonarqube slave agent to run code quality analysis 
+   - Notify slack channel on build status
    - A nexus server to upload the build artifact
    - A tomcat server to deploy the build artifact
-   - Notify slack channel on build status
+   - Notify slack channel on deployment status
 5. Setup logging and monitoring of the application server using prometheus and grafana
 6. Setup regular notifications to project slack channel on the application server's health 
 
