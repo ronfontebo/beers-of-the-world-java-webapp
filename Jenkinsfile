@@ -6,7 +6,7 @@
 pipeline {
   agent any
   tools {
-    maven "maven"
+    maven "maven3.8.5"
   }
   triggers {
     githubPush()
@@ -16,7 +16,7 @@ pipeline {
       steps {
         sh "echo cloning the lastest code version"
         git branch: 'main', 
-        credentialsId: 'GitHubCredentials', 
+        credentialsId: 'git-token', 
         url: 'https://github.com/ronfontebo/beers-of-the-world-java-webapp'
         sh "echo clonning successful"
       }
