@@ -34,7 +34,10 @@ pipeline {
     stage('3. sonarqube code quality analysis') {
       steps {
         sh "echo performing code quality analysis"
-        mvn sonar:sonar -Dsonar.projectKey=beers-of-the-world-webapp -Dsonar.host.url=http://18.222.130.232:9000 -Dsonar.login=06dd207b93373339c4774dafee9116b674fe1721
+        mvn sonar:sonar \
+          -Dsonar.projectKey=beers-of-the-world-webapp \
+          -Dsonar.host.url=http}://18.222.130.232:9000 \
+          -Dsonar.login=06dd207b93373339c4774dafee9116b674fe1721
         sh "echo code quality successful and ready to upload"
       }
     } 
