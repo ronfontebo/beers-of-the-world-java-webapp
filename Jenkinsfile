@@ -30,7 +30,7 @@ pipeline {
       }
     }
 
-    stage('3. sonarqube code quality analysis') {
+  /* stage('3. sonarqube code quality analysis') {
       steps {
         sh "echo performing code quality analysis"
         mvn sonar:sonar \
@@ -38,7 +38,8 @@ pipeline {
           -Dsonar.host.url=http://3.144.172.98:9000 \
           -Dsonar.login=d3759b51d53d51f9ed21e3a7598f5e429133b555
         sh "echo code quality successful and ready to upload"
-
+     }
+   } */
     post {
       always {
         sh "echo notifying slack channel on build status"
@@ -46,7 +47,7 @@ pipeline {
       }
     }  
 
-    stage('5. upload to nexus') {   
+    /*stage('5. upload to nexus') {   
       steps {
         sh "echo uploading artifacts"
         sh "mvn deploy"
@@ -67,7 +68,7 @@ pipeline {
       }
     }
   }
-}
+}*/
 
 
 // End of pipeline
