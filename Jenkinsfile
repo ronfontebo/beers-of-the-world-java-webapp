@@ -5,11 +5,11 @@
 
 pipeline {
   agent any
-  tools {
+  /*tools {
     maven "maven3.8.5"
-  }
+  }*/
   triggers {
-    GitSCM
+    githubPush
   }
   stages {
     stage('1. code checkout') {
@@ -22,7 +22,7 @@ pipeline {
       }
     }
 
-    stage('2. maven build') {
+   /* stage('2. maven build') {
       steps {
         sh "echo validation, compilation, testing and packaging"
         sh "echo testing successful and ready to package"
@@ -30,7 +30,7 @@ pipeline {
       }
     }
 
-  /* stage('3. sonarqube code quality analysis') {
+    stage('3. sonarqube code quality analysis') {
       steps {
         sh "echo performing code quality analysis"
         mvn sonar:sonar \
