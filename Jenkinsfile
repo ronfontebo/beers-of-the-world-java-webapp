@@ -67,8 +67,8 @@ pipeline {
         slackSend botUser: true, channel: '#beers-of-the-world-java-webapp', message: 'Deployment completed and successful : ${env.JOB_NAME} ${env.BUILD_NUMBER}  ', tokenCredentialId: 'slack-token'
       }
     }
-  }
-}*/
+  }*/
+}
 
 
 // End of pipeline
