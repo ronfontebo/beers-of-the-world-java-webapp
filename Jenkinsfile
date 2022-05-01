@@ -59,6 +59,7 @@ pipeline {
         sh "echo deploying to production server"
         sshagent(['agentcredentials']) {
         sh "scp -i apache-key-pair.pem target/*.war ec2-user@172.31.20.10:/opt/tomcat9/webapps/beers-of-the-world-app.war"
+        }
       }
     }
     post {
@@ -66,8 +67,8 @@ pipeline {
         sh "echo notifying slack channel on deployment status"
         slackSend botUser: true, channel: '#beers-of-the-world-java-webapp', message: 'Deployment completed and successful : ${env.JOB_NAME} ${env.BUILD_NUMBER}  ', tokenCredentialId: 'slack-token'
       }
-    }
-  }*/
+    }*/
+  }
 }
 
 
