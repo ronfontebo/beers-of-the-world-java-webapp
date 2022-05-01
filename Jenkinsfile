@@ -44,7 +44,7 @@ pipeline {
     post {
       always {
         sh "echo notifying slack channel on build status"
-        slackSend botUser: true, channel: '#beers-of-the-world-java-webapp', message: 'Build completed and successful. Ready to upload backup to nexus and deploy to tomcat server : ${env.JOB_NAME} ${env.BUILD_NUMBER}  ', tokenCredentialId: 'slack-token'     
+        slackSend botUser: true, channel: '#beers-of-the-world-java-webapp', message: 'Build completed and successful. Ready to upload backup to nexus and deploy to tomcat servers respectively : ${env.JOB_NAME} ${env.BUILD_NUMBER}  ', tokenCredentialId: 'slack-token'     
       }
     }  
 
