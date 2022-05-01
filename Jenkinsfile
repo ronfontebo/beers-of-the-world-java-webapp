@@ -21,8 +21,7 @@ pipeline {
         sh "echo clonning successful"
       }
     }
-  }
-
+  
     stage('2. maven build') {
       steps {
         sh "echo validation, compilation, testing and packaging"
@@ -36,7 +35,7 @@ pipeline {
         sh "echo performing code quality analysis"
         mvn sonar:sonar \
           -Dsonar.projectKey=beers-of-the-world-webapp \
-          -Dsonar.host.url=http}//18.222.130.232:9000 \
+          -Dsonar.host.url=http://18.222.130.232:9000 \
           -Dsonar.login=06dd207b93373339c4774dafee9116b674fe1721
         sh "echo code quality successful and ready to upload"
       }
@@ -70,7 +69,7 @@ pipeline {
         slackSend botUser: true, channel: '#beers-of-the-world-java-webapp', message: 'Deployment completed and successful : ${env.JOB_NAME} ${env.BUILD_NUMBER}  ', tokenCredentialId: 'slack-token'
       }
     } 
-  }
+  }       
 }
 
 // End of pipeline
