@@ -6,7 +6,7 @@
 pipeline {
   agent any
   tools {
-    maven "maven3.8.5"
+    maven "maven"
   }
   triggers {
     githubPush()
@@ -16,7 +16,7 @@ pipeline {
       steps {
         sh "echo cloning the lastest code version"
         git branch: 'main', 
-        credentialsId: 'GitHubCredentials', 
+        credentialsId: 'git-token', 
         url: 'https://github.com/ronfontebo/beers-of-the-world-java-webapp'
         sh "echo clonning successful"
       }
@@ -34,10 +34,10 @@ pipeline {
       steps {
         sh "echo performing code quality analysis"
         tokenCredentialId: 'sonarqube-token'
-        mvn sonar:sonar \
+        sh "mvn sonar:sonar \
           -Dsonar.projectKey=beers-of-the-world-webapp \
           -Dsonar.host.url=http://18.118.168.91:9000 \
-          -Dsonar.login=$tokenCredentialId
+          -Dsonar.login=${tokenCredentialId}"
         sh "echo code quality successful and ready to upload"
       }
     } 
@@ -49,14 +49,14 @@ pipeline {
       }
     } */ 
 
-    stage('5. upload to nexus') {   
+    stage('4. upload to nexus') {   
       steps {
         sh "echo uploading artifacts"
         sh "mvn deploy"
       }
     }
 
-    stage('6. deploy to tomcat') {
+    stage('5. deploy to tomcat') {
       steps {
         sh "echo deploying to production server"
         sshagent(['agentcredentials']) {
@@ -64,18 +64,16 @@ pipeline {
         }
       }
     } 
-
-    post {
-      always {
-        sh "echo notifying slack channel on deployment status"
-        slackSend botUser: true, 
-        channel: '#beers-of-the-world-java-webapp', 
-        message: 'Deployment completed and successful : ${env.JOB_NAME} ${env.BUILD_NUMBER}  ', 
-        tokenCredentialId: 'slack-token'
-      }
-    } 
   }
-}
-
+  
+  post {
+    always {
+      sh "echo notifying slack channel on deployment status"
+      slackSend botUser: true, channel: '#beers-of-the-world-java-webapp', message: 'Deployment completed and successful : ${env.JOB_NAME} ${env.BUILD_NUMBER}  ', tokenCredentialId: 'slack-token'
+    }
+  }
+}  
+ 
+  
 // End of pipeline
-//=========================================================================================================
+//=================================================================================================================================
