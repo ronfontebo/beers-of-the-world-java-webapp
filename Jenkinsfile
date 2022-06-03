@@ -21,8 +21,7 @@ pipeline {
         sh "echo clonning successful"
       }
     }
-  }
-
+  
     stage('2. maven build') {
       steps {
         sh "echo validation, compilation, testing and packaging"
@@ -34,10 +33,11 @@ pipeline {
     stage('3. sonarqube code quality analysis') {
       steps {
         sh "echo performing code quality analysis"
+        tokenCredentialId: 'sonarqube-token'
         mvn sonar:sonar \
           -Dsonar.projectKey=beers-of-the-world-webapp \
-          -Dsonar.host.url=http}//18.222.130.232:9000 \
-          -Dsonar.login=06dd207b93373339c4774dafee9116b674fe1721
+          -Dsonar.host.url=http://18.118.168.91:9000 \
+          -Dsonar.login=$tokenCredentialId
         sh "echo code quality successful and ready to upload"
       }
     } 
@@ -60,14 +60,18 @@ pipeline {
       steps {
         sh "echo deploying to production server"
         sshagent(['agentcredentials']) {
-        sh "scp -i apache-key-pair.pem target/*.war ec2-user@18.218.135.53:/opt/tomcat9/webapps/beers-of-the-world-webapp.war"
+        sh "scp -i apache-key-pair.pem target/*.war ec2-user@18.191.253.216:/opt/tomcat9/webapps/beers-of-the-world-webapp.war"
         }
       }
     } 
+
     post {
       always {
         sh "echo notifying slack channel on deployment status"
-        slackSend botUser: true, channel: '#beers-of-the-world-java-webapp', message: 'Deployment completed and successful : ${env.JOB_NAME} ${env.BUILD_NUMBER}  ', tokenCredentialId: 'slack-token'
+        slackSend botUser: true, 
+        channel: '#beers-of-the-world-java-webapp', 
+        message: 'Deployment completed and successful : ${env.JOB_NAME} ${env.BUILD_NUMBER}  ', 
+        tokenCredentialId: 'slack-token'
       }
     } 
   }

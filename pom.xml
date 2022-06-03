@@ -29,21 +29,21 @@
   </dependencies>
   <properties>
     <property>
-      <sonar.host.url>http://18.222.130.232:9000</sonar.host.url>
+      <sonar.host.url>http://18.118.168.91:9000</sonar.host.url>
       <sonar.login>admin</sonar.login>
       <sonar.password>admin</sonar.password>
     </property>
   </properties>
   <distributionManagement>
     <repository>
-      <id>remote</id> 
+      <id>nexus</id> 
       <name>Releases</name>
-      <url>http://3.16.79.33:8081/repository/maven-releases/</url>
+      <url>http://18.188.106.16:8081/repository/maven-releases/</url>
     </repository>
     <snapshotRepository>
       <id>nexus</id>
       <name>Snapshot</name>
-      <url>http://3.16.79.33:8081/repository/maven-snapshots/</url>
+      <url>http://18.188.106.16:8081/repository/maven-snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
 </project>
