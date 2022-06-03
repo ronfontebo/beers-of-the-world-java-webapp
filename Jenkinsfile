@@ -32,12 +32,14 @@ pipeline {
 
     stage('3. sonarqube code quality analysis') {
       steps {
+        environment {
+          SONAR_CREDS = credentials('sonarqube-token')
+        }  
         sh "echo performing code quality analysis"
-        tokenCredentialId: 'sonarqube-token'
         sh "mvn sonar:sonar \
           -Dsonar.projectKey=beers-of-the-world-webapp \
           -Dsonar.host.url=http://18.118.168.91:9000 \
-          -Dsonar.login=${tokenCredentialId}"
+          -Dsonar.login=${SONAR_CREDS}"
         sh "echo code quality successful and ready to upload"
       }
     } 
