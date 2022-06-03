@@ -1,5 +1,5 @@
 # beers-of-the-world
-A java web app for listing all kinds of beer
+A java web app for listing various kinds of beer.
 
 Steps for deploying this project:
 =================================
