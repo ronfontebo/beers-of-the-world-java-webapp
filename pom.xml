@@ -28,11 +28,9 @@
     </dependency>
   </dependencies>
   <properties>
-    <property>
       <sonar.host.url>http://18.118.168.91:9000</sonar.host.url>
       <sonar.login>admin</sonar.login>
       <sonar.password>admin</sonar.password>
-    </property>
   </properties>
   <distributionManagement>
     <repository>
